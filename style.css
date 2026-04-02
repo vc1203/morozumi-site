@@ -1,0 +1,477 @@
+/* ==========================================
+   1. GLOBAL (共通設定: body, fonts, animation)
+   ========================================== */
+
+body {
+  font-family: 'Noto Serif JP', serif;
+  background-color: #f8f5f0;
+  color: #555;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 常に画面の高さを確保 */
+}
+
+.container {
+  max-width: 1100px !important; /* siteの横幅最大値 */
+}
+
+/* フェードインアニメーション */
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.kern {
+  letter-spacing: -0.3em; /* 詰める幅を調整 */
+}
+
+
+/* ==========================================
+   2. HEADER (ヘッダー・ナビゲーション)
+   ========================================== */
+
+header {
+  background: rgba(44, 62, 80, 0.9) !important; 
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* ヘッダー全体の左右に少し遊びを作る */
+.navbar.container {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+/* ロゴ画像自体が端に寄りすぎないように調整 */
+.navbar-brand {
+  margin-left: 5px;
+}
+
+/* 無料相談ボタン */
+.btn-consult {
+  background: transparent;
+  border: 2px solid #F2EFE9;
+  color: #F2EFE9; /* 初期状態の文字色を固定 */
+  border-radius: 50px;
+  padding: 0.5rem 1.8rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  transition: all 0.3s ease; /* 変化を滑らかにするために追加 */
+  text-decoration: none; /* リンクの下線を消す */
+  display: inline-block;
+}
+.btn-submit:hover {
+  background: rgba(197, 160, 89, 0.9); /* 少し透かす */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+}
+.btn-consult:hover {
+  background-color: #F2EFE9 !important; /* 背景を白（琥珀寄りの白）に */
+  color: #2c3e50 !important;           /* 文字色を鉄紺色に */
+  transform: translateY(-2px);          /* 少し浮き上がらせる */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 影をつけて立体感を出す */
+}
+
+/* PCサイズのみ縦線を表示 */
+@media (min-width: 992px) {
+  .navbar-nav .nav-item:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 1.2rem;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+  }
+  .btn-consult-fixed {
+    display: none;
+  }
+}
+
+
+/* ==========================================
+   3.ツールチップのカスタマイズ
+   ========================================== */
+
+.tooltip {
+  z-index: 2000 !important;
+}
+
+/* 吹き出し本体 */
+.tooltip-inner {
+  background-color: rgba(197, 160, 89, 0.85) !important; /* 琥珀色 */
+  backdrop-filter: blur(4px); /* すりガラス効果を追加 */
+  color: #fff !important;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 0.8rem;
+  padding: 8px 15px;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  white-space: nowrap; /* 文字を改行させず1行に強制する */
+  max-width: none; /* 横幅の制限を解除する */
+}
+
+/* 矢印部分：下の位置(bottom)に表示される時 */
+.bs-tooltip-bottom .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+  border-bottom-color: #C5A059 !important;
+}
+
+/* 矢印部分：上の位置(top)に表示される時 */
+.bs-tooltip-top .tooltip-arrow::before,
+.bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+  border-top-color: #C5A059 !important;
+}
+
+
+/* ==========================================
+   4. HERO (ヒーローセクション)
+   ========================================== */
+
+.hero {
+  min-height: 60vh;
+  margin-bottom: 0; /* 下の余白をゼロに固定 */
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(to bottom,
+    rgba(248,245,240,0) 75%, #f8f5f0 100%),
+    url("img/top_b.webp") center  / cover no-repeat; /* 位置を下に固定 */
+}
+
+.hero h1 {
+  margin-top: -8vh;
+  font-size: 2.5rem;
+  line-height: 1.3;
+  letter-spacing: 0.0em; /* 文字間の設定 */
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 1.5rem;
+  font-weight: 500;
+}
+
+
+/* ==========================================
+   5. CONTENTS (新着情報、グリッド、テーブル)
+   ========================================== */
+
+/* メインコンテンツを自動で伸ばす設定から、新着情報を除外 */
+section:not(header):not(footer):not(.news-section) {
+  flex: 1;
+}
+
+/* 新着情報の窓化（スクロール） */
+.news-scroll {
+  max-height: 170px;
+  overflow-y: auto;
+  border: 1px solid #dee2e6;
+  background: #fff;
+}
+
+/* 新着情報セクションを上に引き上げる設定を追記 */
+.news-section {
+  margin-top: -4rem; /* ヒーローセクションに少し重ねる */
+  position: relative; /* 重なりの順序を正しく保つ */
+  z-index: 10;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 12px 15px;
+}
+
+.news-date {
+  flex: 0 0 80px;
+  font-family: sans-serif;
+  font-weight: 500;
+  color: #666;
+}
+
+/* グリッド（カード） */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 3列から2列に変更 */
+  gap: 3.5rem; /* 隙間拡大 */
+  padding: 3rem 1rem;
+}
+
+/* カード全体のリンク装飾を解除 */
+.bento-grid a {
+  text-decoration: none; /* 下線を消す */
+  color: inherit;        /* 親要素の色（#555）を引き継ぐ */
+  display: block;        /* aタグをカード全体のサイズに広げる */
+  height: 100%;
+}
+
+/* ホバーした時に文字色が変わらないように固定 */
+.bento-grid a:hover {
+  color: inherit;
+}
+
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  overflow: hidden;
+  display: flex;       /* 中身を整列させる */
+  flex-direction: column; /* 縦方向に並べる */
+  height: 100%;       /* ★重要：親（グリッド）の高さまで強制的に伸ばす */
+}
+
+/* カード内の画像サイズを一定に揃える設定 */
+.card-img-wrapper {
+  width: 100%;
+  height: 450px; /* ★ここでお好みの高さに固定できます */
+  overflow: hidden;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ★画像を引き伸ばさず、枠いっぱいに綺麗に収める */
+  transition: transform 0.3s ease;
+}
+
+/* ホバー時に画像を少しズームさせる演出（お好みで） */
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.card:hover { transform: translateY(-8px); }
+
+/* 店舗案内用テーブル */
+.table-shop th {
+  background-color: #f0ede7;
+  width: 30%;
+  padding-left: 1rem;
+}
+
+.table-shop td { padding-left: 1rem; }
+
+.map-container {
+  height: 100%; /* 親要素（row）の高さに合わせる */
+  min-height: 450px;
+  position: relative; /* 重なりを制御するための基準 */
+  z-index: 1; /* 他の主要パーツ（header/footer）より低い値にする */
+  overflow: hidden; /* 枠からはみ出さないようにする */
+  border-radius: 8px; /* 角を少し丸めると画像と馴染みます */
+}
+
+/* --- 下の方にある「レイアウト調整用追加スタイル」 --- */
+.shop-section {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 4rem; /* 下線までの余白を広げる */
+  margin-bottom: 4rem; /* 次のセクション（画像）までの距離を広げる */
+}
+
+.shop-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.contact-card {
+  background: #fff;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.05); /* indexのcardより少し深い影 */
+  border: 1px solid #f0ede7;
+}
+
+.custom-input {
+  border: 1px solid #dee2e6;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  background-color: #fafaf8;
+  transition: all 0.3s ease;
+}
+
+.custom-input:focus {
+  border-color: #C5A059; /* 琥珀色 */
+  box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.1);
+  background-color: #fff;
+}
+
+.btn-submit {
+  background: #C5A059; /* 琥珀色 */
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 3rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+}
+
+.btn-submit:hover {
+  background: rgba(197, 160, 89, 0.9) !important; 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+}
+
+/* 確認画面のテーブル調整 */
+.table th {
+  font-weight: 500;
+  color: #2c3e50; /* 鉄紺色 */
+  vertical-align: middle;
+}
+.table td {
+  color: #555;
+}
+
+
+/* ==========================================
+   6. FOOTER (フッター)
+   ========================================== */
+
+#footer-include {
+  background-color: #2c3e50;
+  color: white;
+  padding: 2rem 1rem;
+  margin-top: auto; /* コンテンツが少なくても下に配置 */
+  text-align: center;
+}
+
+#footer-include .text-secondary {
+  color: rgba(255, 255, 255, 0.6) !important; 
+}
+
+
+/* ==========================================
+   7. RESPONSIVE (スマホ・タブレット調整)
+   ========================================== */
+
+/* 中サイズ（タブレット・スマホ共通） */
+@media (max-width: 991px) {
+
+  /* PC用のヘッダー内ボタンを非表示にする（任意） */
+  /* ヘッダーにも残したい場合は、この display: none は不要です */
+  header .btn-consult {
+    display: none;
+  }
+
+  /* 画面下部固定のスタイル */
+  .btn-consult-fixed {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;       /* 下からの距離 */
+    left: 5%;           /* 左右の余白 */
+    right: 5%;
+    width: 90%;         /* 横幅いっぱいに近いサイズ */
+    height: 60px;
+    z-index: 1050;      /* 他の要素より前面に */
+    background: rgba(197, 160, 89, 0.9) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari対応用に追加 */
+    color: #fff !important;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* 浮いている感じを出す影 */
+  }
+
+  /* ページ最下部でフッターと重ならないための微調整 */
+  body {
+    padding-bottom: 80px; 
+  }
+
+  .offcanvas {
+    width: 240px !important; /* 窓枠を少しスリムに */
+    background-color: #2c3e50 !important;
+  }
+  
+  /* ヘッダーのメニュー項目を中央に寄せる */
+  .navbar-nav {
+    padding-left: 1.5rem; /* 左端に少し余白を作る */
+    padding-right: 1.5rem; /* 右端に少し余白を作る */
+  }
+  .navbar-nav .nav-item {
+    justify-content: flex-start; /* flex-endで右、flex-startで左に寄せる */
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1.1rem;
+    padding: 1rem 0;
+    display: block; /* 項目を横幅いっぱいの「ブロック」にする */
+    width: 100%; /* 幅を100%に固定 */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* ハンバーガーボタンも少し内側に */
+  .navbar-toggler {
+    margin-right: 5px;
+  }
+
+  .navbar-nav .nav-item::after {
+    display: none !important; /* PC用の縦線を消す */
+  }
+  
+  /* フッターの改行対応 */
+  .footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer-divider { display: none; }
+  .footer-shops { font-size: 0.9rem; }
+  .bento-grid { 
+    grid-template-columns: repeat(2, 1fr); /* グリッド */
+    gap: 1.5rem; /* 隙間の広さ */
+  }
+
+  /* 地図 */
+  .map-container {
+    height: 350px !important;
+    min-height: 350px !important;
+    margin-top: 1rem;
+    margin-bottom: 2rem; /* 下の画像との間にしっかり隙間を作る */
+  }
+
+  /* 店舗セクションごとの区切りを明確にする */
+  .shop-section {
+    padding-bottom: 2rem;
+    margin-bottom: 3rem; /* セクション同士の間隔を広げる */
+  }
+}
+
+/* 小サイズ（スマホ） */
+@media (max-width: 576px) {
+  .hero { min-height: 55vh; }
+  .hero h1 { font-size: 2rem; }
+  .list-group-item { flex-direction: column; gap: 0.2rem; }
+  .news-date { flex: none; font-size: 0.85rem; }
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-grid a:active .card { opacity: 0.7; transition: 0s } /* スマホでタップした瞬間だけ、少し暗くする */
+  .navbar-brand img { height: 40px; }
+  .card-img-wrapper { height: 300px; } /* 画像の高さもスマホに合わせて少し抑える */
+  .contact-card {
+    padding: 1.5rem; /* スマホでは余白を狭く */
+    border-radius: 0; /* 画面端まで広げる */
+    margin: 0 -0.75rem;    /* Bootstrapのcontainerの余白に合わせる */
+  }
+  .btn-submit { width: 100%; } /* ボタンを横幅いっぱいに */ 
+}

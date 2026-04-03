@@ -483,7 +483,7 @@ section:not(header):not(footer):not(.news-section) {
 @media (max-width: 991px) {
   /* リンクの直後にテキストを強制挿入 */
   .navbar-nav .nav-link[data-bs-toggle="tooltip"]::after {
-    content: "（" attr(title) "）" !important; /* 括弧で括ると案内っぽくなります */
+    content: attr(title) !important;
     display: block !important;
     
     /* デザイン：リンクのすぐ下に配置 */

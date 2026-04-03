@@ -481,36 +481,22 @@ section:not(header):not(footer):not(.news-section) {
    8. スマホ・タブレット用ツールチップ常時表示
    ========================================== */
 @media (max-width: 991px) {
-  /* 1. 本物のBootstrapツールチップはスマホでは無効化 */
-  .tooltip {
-    display: none !important;
-  }
-
-  /* 2. 親要素の調整：高さを自動にして疑似要素を見えるようにする */
-  .navbar-nav .nav-link[data-bs-toggle="tooltip"] {
-    position: relative !important;
-    display: flex !important; /* blockからflexに変更して構造を安定させる */
-    flex-direction: column;
-    padding-bottom: 2.5rem !important; /* 吹き出し分の余白を強制確保 */
-  }
-
-  /* 3. 疑似要素でテキストを強制表示 */
+  /* リンクの直後にテキストを強制挿入 */
   .navbar-nav .nav-link[data-bs-toggle="tooltip"]::after {
-    content: attr(title) !important; /* title属性を引用 */
+    content: "（" attr(title) "）" !important; /* 括弧で括ると案内っぽくなります */
     display: block !important;
     
-    /* 配置：リンクのすぐ下に配置 */
-    position: absolute;
-    bottom: 0.8rem;
-    left: 0;
-    width: 100%;
-    
-    /* デザイン */
-    font-size: 0.75rem !important;
-    color: #C5A059 !important; /* 琥珀色にすると視認性が上がっておすすめです */
+    /* デザイン：リンクのすぐ下に配置 */
+    font-size: 0.8rem !important;
+    color: #C5A059 !important; /* 琥珀色 */
+    margin-top: 5px;
     font-weight: normal;
-    letter-spacing: 0.05em;
     opacity: 1 !important;
     visibility: visible !important;
+  }
+
+  /* もし高さが足りなくて隠れているなら、親のpaddingを調整 */
+  .navbar-nav .nav-item {
+    height: auto !important;
   }
 }

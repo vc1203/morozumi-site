@@ -70,6 +70,9 @@ document.addEventListener('DOMContentLoaded', includeHTML);
  * header.htmlの読み込み完了後に呼び出されます
  */
 function initTooltip() {
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+  // 画面幅が992px以上の時だけ実行（Bootstrapのlgサイズ以上）
+  if (window.innerWidth >= 992) {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+  }
 }

@@ -29,7 +29,7 @@ export default {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           personalizations: [{ to: [{ email: "breaking_vision@yahoo.co.jp" }] }],
-          from: { email: "breaking_vision@yahoo.co.jp", name: "株式会社 両角佛壇 HP" },
+          from: { email: "info@morozumi.jp", name: "株式会社 両角佛壇 HP" },
           subject: "【ホームページ】お問い合わせがありました",
           content: [{ type: "text/plain", value: mailBody }],
         }),

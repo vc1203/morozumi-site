@@ -28,7 +28,7 @@ export default {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          personalizations: [{ to: [{ email: "info@morozumi.jp" }] }],
+          personalizations: [{ to: [{ email: "breaking_vision@yahoo.co.jp" }] }],
           from: { email: "breaking_vision@yahoo.co.jp", name: "株式会社 両角佛壇 HP" },
           subject: "【ホームページ】お問い合わせがありました",
           content: [{ type: "text/plain", value: mailBody }],
@@ -38,7 +38,7 @@ export default {
       if (sendRequest.ok) {
         // 送信成功時：thanks.html へリダイレクト
         // ★移管後の本番ドメインに合わせてURLを修正してください
-        return Response.redirect("https://morozumi.jp/thanks.html", 303);
+        return Response.redirect("https://morozumi-site.pages.dev/thanks.html", 303);
       } else {
         return new Response("送信失敗。MailChannelsの設定を確認してください。", { status: 500 });
       }

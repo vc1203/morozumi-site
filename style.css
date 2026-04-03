@@ -481,29 +481,33 @@ section:not(header):not(footer):not(.news-section) {
    8. スマホ・タブレット用ツールチップ常時表示
    ========================================== */
 @media (max-width: 991px) {
-  /* ツールチップを強制的に表示状態にする */
+  /* 1. 本物のBootstrapツールチップはスマホでは無効化（干渉防止） */
   .tooltip {
-    opacity: 1 !important;
-    visibility: visible !important;
-    position: relative !important; /* メニュー内に収めるため */
-    display: block !important;
-    margin-top: 5px !important;
-  }
-  
-  /* 矢印（三角形）をスマホでは消す（スッキリさせるため） */
-  .tooltip-arrow {
     display: none !important;
   }
 
-  /* ツールチップ内のデザイン微調整 */
-  .tooltip-inner {
-    position: static !important;
-    max-width: 100% !important;
-    text-align: left;
-    padding: 5px 0 !important;
-    background-color: transparent !important; /* 背景を透明に */
-    color: rgba(255, 255, 255, 0.7) !important; /* 文字を少し薄くして補足情報らしく */
-    box-shadow: none !important;
-    font-size: 0.75rem !important;
+  /* 2. リンクの下に吹き出しの内容を常に表示させる */
+  .navbar-nav .nav-link[data-bs-toggle="tooltip"] {
+    position: relative;
+    padding-bottom: 2rem; /* テキストを表示するスペースを確保 */
+  }
+
+  .navbar-nav .nav-link[data-bs-toggle="tooltip"]::after {
+    /* title属性の内容をここに表示 */
+    content: attr(title); 
+    
+    /* 配置とデザイン */
+    position: absolute;
+    left: 0;
+    bottom: 0.5rem;
+    display: block;
+    width: 100%;
+    
+    /* 補足テキストとしての装飾 */
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6); /* 少し薄くして補足感を出す */
+    font-family: 'Noto Serif JP', serif;
+    font-weight: normal;
+    letter-spacing: 0.05em;
   }
 }

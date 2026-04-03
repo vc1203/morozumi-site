@@ -481,22 +481,48 @@ section:not(header):not(footer):not(.news-section) {
    8. スマホ・タブレット用ツールチップ常時表示
    ========================================== */
 @media (max-width: 991px) {
-  /* リンクの直後にテキストを強制挿入 */
-  .navbar-nav .nav-link[data-bs-toggle="tooltip"]::after {
-    content: attr(title) !important;
+  /* 1. 親要素：高さを他の項目と揃える */
+  .navbar-nav .nav-link[data-bs-toggle="tooltip"] {
+    position: relative !important;
     display: block !important;
-    
-    /* デザイン：リンクのすぐ下に配置 */
-    font-size: 0.8rem !important;
-    color: #C5A059 !important; /* 琥珀色 */
-    margin-top: 5px;
-    font-weight: normal;
-    opacity: 1 !important;
-    visibility: visible !important;
+    text-align: left !important;
+    /* 他の項目と同じパディングに戻す */
+    padding: 1rem 0 !important; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   }
 
-  /* もし高さが足りなくて隠れているなら、親のpaddingを調整 */
-  .navbar-nav .nav-item {
-    height: auto !important;
+  /* 2. 吹き出し本体：下ラインの真上に配置 */
+  .navbar-nav .nav-link[data-bs-toggle="tooltip"]::after {
+    content: attr(title) !important;
+    position: absolute;
+    /* 下ラインに重なるように配置 */
+    bottom: -12px; 
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background-color: rgba(197, 160, 89, 0.9) !important;
+    color: #fff !important;
+    font-size: 0.7rem !important; /* 少し小ぶりに */
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* 3. 吹き出しの三角部分：本体のすぐ上に配置 */
+  .navbar-nav .nav-link[data-bs-toggle="tooltip"]::before {
+    content: "" !important;
+    position: absolute;
+    bottom: 8px; /* 本体の位置に合わせて調整 */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    border-style: solid;
+    border-width: 0 5px 6px 5px;
+    border-color: transparent transparent rgba(197, 160, 89, 0.9) transparent;
+    display: block !important;
+    z-index: 101;
   }
 }

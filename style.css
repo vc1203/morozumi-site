@@ -475,3 +475,35 @@ section:not(header):not(footer):not(.news-section) {
   }
   .btn-submit { width: 100%; } /* ボタンを横幅いっぱいに */ 
 }
+
+
+/* ==========================================
+   8. スマホ・タブレット用ツールチップ常時表示
+   ========================================== */
+@media (max-width: 991px) {
+  /* ツールチップを強制的に表示状態にする */
+  .tooltip {
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important; /* メニュー内に収めるため */
+    display: block !important;
+    margin-top: 5px !important;
+  }
+  
+  /* 矢印（三角形）をスマホでは消す（スッキリさせるため） */
+  .tooltip-arrow {
+    display: none !important;
+  }
+
+  /* ツールチップ内のデザイン微調整 */
+  .tooltip-inner {
+    position: static !important;
+    max-width: 100% !important;
+    text-align: left;
+    padding: 5px 0 !important;
+    background-color: transparent !important; /* 背景を透明に */
+    color: rgba(255, 255, 255, 0.7) !important; /* 文字を少し薄くして補足情報らしく */
+    box-shadow: none !important;
+    font-size: 0.75rem !important;
+  }
+}

@@ -28,7 +28,7 @@ export default {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
-          personalizations: [{ to: [{ email: "breaking_vision@yahoo.co.jp" }] }],
+          personalizations: [{ to: [{ email: "info@morozumi.jp" }] }],
           from: { email: "info@morozumi.jp", name: "株式会社 両角佛壇 HP" },
           subject: "【ホームページ】お問い合わせがありました",
           content: [{ type: "text/plain", value: mailBody }],
